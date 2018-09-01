@@ -300,7 +300,7 @@ class FTPSConnection(AbstractConnection):
                         continue
 
                     raise
-            
+
             if retries == 0:
                 if exception is not None:
                     print ("FTPSync > Retrying " + command + " failed: " + str(exception))
@@ -604,14 +604,14 @@ class FTPSConnection(AbstractConnection):
 
             self.cwd(root)
             try:
-                self.voidcmd("RMD " + name)
+                self.voidcmd("RMD " + path)
             except Exception as e:
                 if self.__isErrorCode(e, 'fileUnavailible'):
                     return False
                 else:
                     raise
         else:
-            self.voidcmd("DELE " + name)
+            self.voidcmd("DELE " + path)
 
 
 
@@ -1105,7 +1105,7 @@ class FTPSConnection(AbstractConnection):
             relative = os.path.relpath(path, root)
         else:
             relative = root + '/' + path
-        
+
         relative = self._postprocessPath(relative)
 
         folders = list(filter(None, relative.split("/")))
